@@ -1,0 +1,36 @@
+<div style="max-height: 90%;overflow: hidden;" id="scrollbox">
+    <div v-for="(num,index) in numList" :key="index" class="list" style="display: flex;height: 30px;">
+        <p style="width:auto;min-width: 40%;display:flex;justify-content: center;align-items: center;color:#fff;">{{num.orgName}}</p>
+        <p style="width:auto;min-width: 30%;display:flex;justify-content: center;align-items: center;color:#fff;">{{num.code}}</p>
+        <p style="width:auto;min-width: 30%;display:flex;justify-content: center;align-items: center;color:#fff;">{{num.grade}}</p>
+    </div>
+    <div class="list2"></div>
+</div>
+
+
+
+createAnimate(){
+    const style = document.createElement('style');
+    // 设置style属性
+    style.type = 'text/css';
+    for(let i=0;i<this.numList.length;i++){
+        var runkeyframes =`@keyframes myMove${i}{
+                            0% {
+                                transform: translateY(0);
+                            }
+                            100% {
+                                transform: translateY(-${(i+1)*30}px);//动画位移几行像素
+                            }
+                        }`
+        // 将 keyframes样式写入style内
+        style.innerHTML = runkeyframes;
+        // 将style样式存放到head标签
+    }
+    setTimeout(()=>{
+        document.getElementsByTagName('head')[0].appendChild(style)//文档内添加样式
+        let listlen=document.getElementsByClassName('list').length
+        for(let i=0;i<listlen;i++){
+            document.getElementsByClassName('list')[i].style.animation=`myMove1 2s linear infinite`
+        }
+    },50)
+}
